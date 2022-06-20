@@ -236,8 +236,9 @@ class MedicalGraph:
 
 if __name__ == '__main__':
     handler = MedicalGraph()
-    print("step1:导入图谱节点中")
+    print("step1:")
     handler.create_graphnodes()
-    print("step2:导入图谱边中")
+    print("step2:")
     handler.create_graphrels()
+    print('搭建知识图谱成功！')
 
