@@ -190,7 +190,6 @@ def search_res(question, graph):
         except:
             continue
 
-
 if __name__ == '__main__':
 
     # 连接数据库
