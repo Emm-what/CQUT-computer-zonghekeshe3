@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>PC常用Banner</title>
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="css/swiper.min.css">
+
+    <!-- Demo styles -->
+    <style>
+    body {
+        background: #eee;
+        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+        font-size: 14px;
+        color:#000;
+        margin: 0;
+        padding: 0;
+    }
+	#banner{
+		width:100%;
+		height:523px;
+		overflow:hidden;
+		position:relative;}
+    .swiper-container {
+        width: 1750px;
+        height: 523px;
+		position:absolute;
+		left:-875px;
+		margin-left:50%;
+    }
+    .swiper-slide .detail{
+		height:90px;
+		background:rgba(0,0,0,.7);
+		position:absolute;
+		width:100%;
+		bottom:0;
+		color:#fff;
+		opacity:0;
+		transition:opacity .3s .3s;
+    }
+	.swiper-slide-active .detail{
+		opacity:1;
+		}
+	.swiper-slide .detail h3{
+		width:950px;
+		margin:15px auto 0;}
+	.swiper-slide .detail p{
+		width:950px;
+		margin:5px auto 0;}	
+	.swiper-slide .detail p span{
+		width:650px;
+		display:block;}	
+/**/.effect1 img{
+		transform:scale(1.25,1.25) translate(10%,10%);
+		transform:scale(1.1,1.1) translate(4.545%,4.545%);
+		/*tr     =    (sc-1)/2sc*100%              */
+        /* --1.25       0.25/2.5*100%=10%          */
+		
+		}
+		
+.leftUp img{-webkit-animation-name:leftUp;animation-name:leftUp;}
+@-webkit-keyframes leftUp{
+0%{transform:scale(1.1,1.1) translate(4.545%,4.545%); }
+100%{transform:scale(1.1,1.1)  translate(-4.545%,-4.545%);}}
+@keyframes leftUp{
+0%{transform:scale(1.1,1.1) translate(4.545%,4.545%);}
+100%{transform:scale(1.1,1.1)  translate(-4.545%,-4.545%);}}
+
+.moveRight img{-webkit-animation-name:moveRight;animation-name:moveRight;}
+@-webkit-keyframes moveRight{
+0%{transform:scale(1.1,1.1) translate(-4.545%,0); }
+100%{transform:scale(1.1,1.1)  translate(4.545%,0);}}
+@keyframes moveRight{
+0%{transform:scale(1.1,1.1) translate(-4.545%,0);}
+100%{transform:scale(1.1,1.1)  translate(4.545%,0);}}
+
+.moveDown img{-webkit-animation-name:moveDown;animation-name:moveDown;}
+@-webkit-keyframes moveDown{
+0%{transform:scale(1.1,1.1) translate(0,-4.545%); }
+100%{transform:scale(1.1,1.1)  translate(0,4.545%);}}
+@keyframes moveDown{
+0%{transform:scale(1.1,1.1) translate(0,-4.545%);}
+100%{transform:scale(1.1,1.1)  translate(0,4.545%);}}
+
+.centerBig img{-webkit-animation-name:centerBig;animation-name:centerBig;}
+@-webkit-keyframes centerBig{
+100%{transform:scale(1.1,1.1);}}
+@keyframes centerBig{
+100%{transform:scale(1.1,1.1);}}
+
+.rightDownBig img{-webkit-animation-name:rightDownBig;animation-name:rightDownBig;}
+@-webkit-keyframes rightDownBig{
+100%{transform:scale(1.1,1.1) translate(4%,4%);}}
+@keyframes rightDownBig{
+100%{transform:scale(1.1,1.1) translate(4%,4%);}}
+
+.swiper-slide img{
+	animation-duration:5s;
+	animation-timing-function:linear;
+	animation-fill-mode: forwards;
+	-webkit-animation-duration:5s;
+	-webkit-animation-timing-function:linear;
+	-webkit-animation-fill-mode: forwards;
+	}	
+.swiper-pagination{
+	bottom:35px;
+	right:250px;
+	}
+.swiper-pagination-bullet{
+	width:20px;
+	height:20px;
+	background:#fff;
+	margin:0 5px;
+	}		
+    </style>
+</head>
+<body>
+    <!-- Swiper -->
+<div id="banner">    
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide rightDownBig"><img src="images/slide1.jpg" /><div class="detail"><h3>Lorem ipsum dolor sit ametel consi.</h3>
+<p><span>Et etur adip scing elit vesti bulum ut tortor urna dunter dolor nuncet vulputate ultrices con sect eturito
+donec semper lacinia ultricies. </span></p></div></div>
+            <div class="swiper-slide"><img src="images/slide2.jpg" /><div class="detail"><h3>Et etur adip scing elit vesti bulum ut.</h3>
+<p><span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean nonummy hendrerit mauris
+consectetuer adipiscing elit. </span></p></div></div>
+            <div class="swiper-slide"><img src="images/slide3.jpg" /><div class="detail"><h3>Aliquam erat volutpat. Duis ac turpis.</h3>
+<p><span>Et etur adip scing elit vesti bulum ut tortor urna dunter dolor nuncet vulputate ultrices con sect eturito
+donec semper lacinia ultricies.  </span></p></div></div>
+            <div class="swiper-slide"><img src="images/slide4.jpg" /><div class="detail"><h3>Aliquam erat volutpat. Duis ac turpis.</h3>
+<p><span>Praesent vestibulum molestie lacus. Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+vestibulum molestie lacus. </span></p></div></div>
+        </div>
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
+    <!-- Swiper JS -->
+    <script src="js/swiper.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+	trList=['leftUp','moveRight','moveDown','centerBig','rightDownBig'];
+    var swiper = new Swiper('.swiper-container',{
+		speed:500,
+		autoplay:4400,
+		autoplayDisableOnInteraction:false,
+		effect:'fade',
+		pagination : '.swiper-pagination',
+		paginationClickable :true,
+		onSlideChangeStart: function(swiper){
+			nextSlide=swiper.slides.eq(swiper.activeIndex);
+			nextSlide.addClass(trList[Math.floor(Math.random()*5)]);
+           },
+	    onSlideChangeEnd: function(swiper){
+		    prevSlide=swiper.slides[swiper.previousIndex];
+		    prevSlide.className="swiper-slide";
+	       },
+		});	
+    </script>
+</body>
+</html>
