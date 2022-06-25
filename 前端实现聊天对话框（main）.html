@@ -1,54 +1,90 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>客服聊天</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="format-detection" content="telephone=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<link rel="stylesheet" href="screen.css">
+    <meta charset="utf-8">
+    <title>小小医疗问答系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="screen.css">
+    <link rel="stylesheet" href="css/swiper.min.css">
 <script src="http://code.jquery.com/jquery-1.7.1.js"></script>
 </head>
 <body>
+    <div id="banner">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide rightDownBig"><img src="img/001.jpg" /></div>
+            <div class="swiper-slide"><img src="img/002.jpg" /></div>
+            <div class="swiper-slide"><img src="img/003.jpg" /></div>
+            <div class="swiper-slide"><img src="img/004.jpg" /></div>
+            <div class="swiper-slide"><img src="img/005.jpg" /></div>
+            <div class="swiper-slide"><img src="img/006.jpg" /></div>
+        </div>
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
 <div class="dialogue-wrapper">
     <div id="btn_open" class="dialogue-support-btn">
         <i class="dialogue-support-icon"></i>
         <i class="dialogue-support-line"></i>
-        <span class="dialogue-support-text">联系客服</span>
+        <span class="dialogue-support-text">联系小小</span>
     </div>
     <div class="dialogue-main">
         <div class="dialogue-header">
             <i id="btn_close" class="dialogue-close">></i>
             <div class="dialogue-service-info">
-                <i class="dialogue-service-img">头像</i>
+<!--                加一个头像-->
+<!--                <i class="dialogue-service-img"></i>-->
+                <img class="dialogue-service-img" src="img/徐晔医生.jpg">
                 <div class="dialogue-service-title">
-                    <p class="dialogue-service-name">XX客服</p>
-                    <p class="dialogue-service-detail">XX客服支持平台</p>
+                    <p class="dialogue-service-name">医疗问答</p>
+                    <p class="dialogue-service-detail">由人工智能小文为您服务</p>
                 </div>
             </div>
         </div>
         <div id="dialogue_contain" class="dialogue-contain">
-            <p class="dialogue-service-contain"><span class="dialogue-text dialogue-service-text">您好，请提问</span></p>
+            <p class="dialogue-service-contain"><span class="dialogue-text dialogue-service-text">您好，请问您需要咨询什么问题？</span></p>
             <!-- <p class="dialogue-customer-contain"><span class="dialogue-text dialogue-customer-text">我有个问题</span></p> -->
         </div>
         <div class="dialogue-submit">
             <p id="dialogue_hint" class="dialogue-hint"><span class="dialogue-hint-icon">!</span><span class="dialogue-hint-text">发送内容不能为空</span></p>
             <textarea id="dialogue_input" class="dialogue-input-text" placeholder="请输入您的问题，按Enter键提交（shift+Enter换行）"></textarea>
-            <div class="dialogue-input-tools">
-                小工具预留位置
-            </div>
+<!--            <div class="dialogue-input-tools">-->
+<!--                小工具预留位置-->
+<!--            </div>-->
         </div>
     </div>
+        <!-- Swiper JS -->
+    <script src="js/swiper.min.js"></script>
 </div>
 <script>
+trList=['leftUp','moveRight','moveDown','centerBig','rightDownBig'];
+    var swiper = new Swiper('.swiper-container',{
+		speed:500,
+		autoplay:4400,
+		autoplayDisableOnInteraction:false,
+		effect:'fade',
+		pagination : '.swiper-pagination',
+		paginationClickable :true,
+		onSlideChangeStart: function(swiper){
+			nextSlide=swiper.slides.eq(swiper.activeIndex);
+			nextSlide.addClass(trList[Math.floor(Math.random()*5)]);
+           },
+	    onSlideChangeEnd: function(swiper){
+		    prevSlide=swiper.slides[swiper.previousIndex];
+		    prevSlide.className="swiper-slide";
+	       },
+		});
+
     var doc = document;
     // 模拟一些后端传输数据
     var serviceData = {
         'robot': {
             'name': 'robot001',
             'dialogue': ['模拟回复1', '模拟回复2', '模拟回复3'],
-            'welcome': '您好，robot001为您服务'
+            'welcome': '您好，小小为您服务'
         }
     };
 
@@ -120,7 +156,6 @@
     function submitCustomerText(text) {
         console.log(text)
         // code here 向后端发送text内容
-
         // 模拟后端回复
         var num = Math.random() * 10;
         if (num <= 7) {
@@ -155,21 +190,7 @@
         }, 10);
         return true;
     }
-<!--    // 渐隐-->
-<!--    Object.prototype.iFadeOut = function() {-->
-<!--        var n = 100,-->
-<!--            that = this;-->
-<!--        var time = setInterval(function() {-->
-<!--            if (n > 0) {-->
-<!--                n -= 10;-->
-<!--                that.style.opacity = '0.' + n;-->
-<!--            } else if (n <= 30) {-->
-<!--                that.style.opacity = '0';-->
-<!--                clearInterval(time);-->
-<!--            }-->
-<!--        }, 10);-->
-<!--        return true;-->
-<!--    }-->
+
     // 渐显
     function fadeIn(obj) {
         var n = 30;
