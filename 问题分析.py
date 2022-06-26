@@ -48,6 +48,8 @@ class questionClassify:
         self.list_dis_drug_qws = ['吃什么能治', '什么能治', '什么药有效']
         self.list_sym_dis_qws = ['是什么病', '为什么会', '什么引起', '什么会引起', '什么病']
         self.list_dis_cost = ['钱', '花费', '花']
+        self.list_cure_qwds = ['治疗什么', '治啥', '治疗啥', '医治啥', '治愈啥', '主治啥', '主治什么', '有什么用', '有何用', '用处', '用途',
+                            '有什么好处', '有什么益处', '有何益处', '用来', '用来做啥', '用来作甚', '需要', '要']
 
     # 构造领域树，用于提速
     def build_actree(self, all_word):
@@ -90,7 +92,7 @@ class questionClassify:
             if word in set(self.list_check):
                 final_dict.setdefault('check', []).append(word)
             if word in set(self.list_symptoms):
-                final_dict.setdefault('symptoms', []).append(word)
+                final_dict.setdefault('symptom', []).append(word)
             if word in set(self.list_food):
                 final_dict.setdefault('food', []).append(word)
             if word in set(self.list_producer):
@@ -120,24 +122,51 @@ class questionClassify:
         if self.check_words(self.list_symptom_qws, question) and ('disease' in types):
             question_type = 'disease_symptom'
             question_types.append(question_type)
+        # 已知症状查疾病
+        if self.check_words(self.list_sym_dis_qws, question) and ('symptoms' in types):
+            question_type = 'symptoms_disease'
+            question_types.append(question_type)
         # 已知疾病查原因
         if self.check_words(self.list_cause_qws, question) and ('disease' in types):
             question_type = 'disease_cause'
             question_types.append(question_type)
         # 已经疾病查并发症
         if self.check_words(self.list_complications_qws, question) and ('disease' in types):
-            question_type = 'disease_complication'
+            question_type = 'disease_acompany'
             question_types.append(question_type)
         # 已知疾病查食物
         if self.check_words(self.list_food_qws, question) and ('disease' in types):
             food_flag = self.check_words(self.list_deny, question)
             print(food_flag)
             if food_flag:
-                question_type = 'disease_bad_food'
-                question_types.append(question_type)
+                question_type = 'disease_not_food'
             else:
-                question_type = 'disease_good_food'
-                question_types.append(question_type)
+                question_type = 'disease_do_food'
+            question_types.append(question_type)
+        # 已知食物找疾病
+        if self.check_words(self.list_food_qws+self.list_cure_qwds, question) and 'food' in types:
+            food_flag = self.check_words(self.list_deny, question)
+            if food_flag:
+                question_type = 'food_not_disease'
+            else:
+                question_type = 'food_do_disease'
+            question_types.append(question_type)
+        # 已知疾病查检查药品
+        if self.check_words(self.list_drug_qws, question) and ('disease' in types):
+            question_type = 'disease_drug'
+            question_types.append(question_type)
+        # 药品治啥病
+        if self.check_words(self.list_cure_qwds, question) and 'drug' in types:
+            question_type = 'drug_disease'
+            question_types.append(question_type)
+        # 已知疾病查检查项目
+        if self.check_words(self.list_check_qws, question) and ('disease' in types):
+            question_type = 'disease_check'
+            question_types.append(question_type)
+        # 已知检查查疾病
+        if self.check_words(self.list_check_dis_qws, question) and ('check' in types):
+            question_type = 'check_disease'
+            question_types.append(question_type)
         # 已知疾病查预防
         if self.check_words(self.list_prevent_qws, question) and ('disease' in types):
             question_type = 'disease_prevent'
@@ -153,14 +182,6 @@ class questionClassify:
         # 已经疾病查易感人群
         if self.check_words(self.list_easyget_qws, question) and ('disease' in types):
             question_type = 'disease_easyget'
-            question_types.append(question_type)
-        # 已知疾病查检查项目
-        if self.check_words(self.list_check_qws, question) and ('disease' in types):
-            question_type = 'disease_check'
-            question_types.append(question_type)
-        # 已知疾病查检查药品
-        if self.check_words(self.list_drug_qws, question) and ('disease' in types):
-            question_type = 'disease_drug'
             question_types.append(question_type)
         # 已知疾病查科室
         if self.check_words(self.list_belong_qws, question) and ('disease' in types):
@@ -186,18 +207,16 @@ class questionClassify:
         if self.check_words(self.list_prod_drug_qws, question) and ('producer' in types):
             question_type = 'producer_drug'
             question_types.append(question_type)
-        # 已知检查查疾病
-        if self.check_words(self.list_check_dis_qws, question) and ('check' in types):
-            question_type = 'check_disease'
-            question_types.append(question_type)
         # 已知疾病查应该吃的药
         if self.check_words(self.list_dis_drug_qws, question) and ('disease' in types):
             question_type = 'disease_drug'
             question_types.append(question_type)
-        # 已知症状查疾病
-        if self.check_words(self.list_sym_dis_qws, question) and ('symptoms' in types):
-            question_type = 'symptoms_disease'
-            question_types.append(question_type)
+        # 若没有查到相关的外部查询信息，那么则将该疾病的描述信息返回
+        if question_types == [] and 'disease' in types:
+            question_types = ['disease_desc']
+        # 若没有查到相关的外部查询信息，那么则将该疾病的描述信息返回
+        if question_types == [] and 'symptom' in types:
+            question_types = ['symptom_disease']
 
         data['question_types'] = question_types
         return data
