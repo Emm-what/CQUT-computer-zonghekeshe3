@@ -37,7 +37,7 @@ class questionClassify:
                             '怎样才可不', '怎么才可不', '咋样才可不', '咋才可不', '如何可不']
         self.list_lasttime_qws = ['周期', '多久', '多长时间', '多少时间', '几天', '几年', '多少天', '多少小时', '几个小时', '多少年']
         self.list_cureway_qws = ['怎么治疗', '如何医治', '怎么医治', '怎么治', '怎么医', '如何治', '医治方式', '疗法', '咋治', '怎么办', '咋办', '咋治']
-        self.list_cureprob_qws = ['多大概率能治好', '多大几率能治好', '治好希望大么', '几率', '几成', '比例', '可能性', '能治', '可治', '可以治', '可以医', '治愈率']
+        self.list_cureprob_qws = ['多大概率能治好', '多大几率能治好', '治好希望大么', '几率', '几成', '比例', '可能性', '能治', '可治', '治好', '可以医', '治愈率']
         self.list_easyget_qws = ['易感人群', '容易感染', '易发人群', '什么人', '哪些人', '感染', '染上', '得上']
         self.list_check_qws = ['检查', '检查项目', '查出', '检查', '测出', '试出']
         self.list_belong_qws = ['属于什么科', '属于', '什么科', '科室', '挂什么科']
@@ -137,7 +137,7 @@ class questionClassify:
         # 已知疾病查食物
         if self.check_words(self.list_food_qws, question) and ('disease' in types):
             food_flag = self.check_words(self.list_deny, question)
-            print(food_flag)
+            # print(food_flag)
             if food_flag:
                 question_type = 'disease_not_food'
             else:
@@ -189,11 +189,7 @@ class questionClassify:
             question_types.append(question_type)
         # 已知疾病查治愈率
         if self.check_words(self.list_cureprob_qws, question) and ('disease' in types):
-            question_type = 'disease_ratio'
-            question_types.append(question_type)
-        # 已知疾病查费用
-        if self.check_words(self.list_dis_cost, question) and ('disease' in types):
-            question_type = 'disease_cost'
+            question_type = 'disease_cureprob'
             question_types.append(question_type)
         # 已知科室查疾病
         if self.check_words(self.list_depart_dis_qws, question) and ('department' in types):
