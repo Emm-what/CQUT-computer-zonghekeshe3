@@ -1,11 +1,3 @@
-# coding = utf-8
-"""
-    Created on 2021年12月13日
-    @author：lizhuohua 11904030126
-    @description： 本程序用于将提取到得实体信息 以及问句类型转换为查询语句，在数据库中查询结果
-    @version 2.0
-"""
-
 from py2neo import Graph, NodeMatcher, RelationshipMatcher
 from 问题分析 import questionClassify
 
