@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # coding: utf-8
 # File: 聊天交互.py
-# Date: 2022-6-26
+# Date: 2022-6-30
 
 from 获取结果 import *
 from 问题分析 import *
@@ -25,8 +25,8 @@ class chat:
 
 if __name__ == '__main__':
     handler = chat()
-    while 1:
-        question = input('用户:')
-        answer = handler.chat_main(question)
-        print('小文:', answer)
+    # while 1:
+    question = input('用户:')
+    answer = handler.chat_main(question)
+    print('小文:', answer)
 
